@@ -20,6 +20,7 @@ fun main(){
     println(stringList.getLongest())
 }
 
+
 fun String.monogram(): String = split(" ").map { it.first() }.joinToString("")
 fun List<String>.joinBySeparator(separator: String): String = joinToString(separator)
 fun List<String>.getLongest(): String = maxBy { it.length }
