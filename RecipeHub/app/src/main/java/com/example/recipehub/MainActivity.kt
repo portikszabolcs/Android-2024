@@ -3,15 +3,11 @@ package com.example.recipehub
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import com.example.recipehub.databinding.ActivityMainBinding
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.message.text = intent.extras?.getString("message")
+        setContentView(R.layout.activity_main)
     }
 
     override fun onStart() {
