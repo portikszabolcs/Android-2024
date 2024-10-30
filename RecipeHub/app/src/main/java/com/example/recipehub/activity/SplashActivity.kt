@@ -1,4 +1,4 @@
-package com.example.recipehub
+package com.example.recipehub.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.recipehub.R
 
 class SplashActivity : AppCompatActivity() {
 
