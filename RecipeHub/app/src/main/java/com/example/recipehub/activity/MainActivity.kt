@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.recipehub.R
 import com.example.recipehub.databinding.ActivityMainBinding
 import com.example.recipehub.ui.HomeFragment
-import com.example.recipehub.ui.ProfileFragment
-import com.example.recipehub.ui.RecipesFragment
+import com.example.recipehub.ui.profile.ProfileFragment
+import com.example.recipehub.ui.recipe.RecipesFragment
 
 
 class MainActivity : AppCompatActivity() {

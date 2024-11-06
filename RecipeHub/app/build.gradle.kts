@@ -51,6 +51,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.gson)
+
     // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)
 
@@ -60,6 +62,7 @@ dependencies {
 
     // Feature module support for Fragments
     implementation(libs.androidx.navigation.dynamic.features.fragment)
+    implementation(libs.firebase.crashlytics.buildtools)
 
     // Testing Navigation
     androidTestImplementation(libs.androidx.navigation.testing)
