@@ -1,7 +1,7 @@
 package com.example.recipehub.repository.recipe.model
 
 data class RecipeDTO(
-    val recipeId: Int,
+    val recipeID: Int,
     val name: String,
     val description: String,
     val thumbnailUrl: String,
@@ -17,7 +17,7 @@ data class RecipeDTO(
 
 fun RecipeDTO.toModel(): RecipeModel
 { return RecipeModel(
-    id = this.recipeId,
+    id = this.recipeID,
     name = this.name,
     description = this.description,
     thumbnailUrl = this.thumbnailUrl,

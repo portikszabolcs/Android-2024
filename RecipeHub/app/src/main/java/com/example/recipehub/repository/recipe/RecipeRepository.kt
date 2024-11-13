@@ -10,8 +10,15 @@ import com.google.gson.Gson
 import java.io.IOException
 
 class RecipeRepository {
+    private var recipeList: List<RecipeModel> = emptyList()
+
     fun getAll(context: Context): List<RecipeModel> {
-        return readAll(context).toModelList()
+        recipeList = readAll(context).toModelList()
+        return recipeList
+    }
+
+    fun getById(id: Int): RecipeModel? {
+        return recipeList.find { it.id == id }
     }
 
     private fun readAll(context : Context): List<RecipeDTO> {

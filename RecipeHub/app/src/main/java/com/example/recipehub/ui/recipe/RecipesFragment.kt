@@ -1,6 +1,7 @@
 package com.example.recipehub.ui.recipe
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipehub.App
 import com.example.recipehub.R
 import com.example.recipehub.repository.recipe.model.RecipeModel
 import com.example.recipehub.ui.recipe.adapter.RecipesListAdapter
+import com.example.recipehub.ui.recipe.factory.RecipeListFactory
 import com.example.recipehub.ui.recipe.viewmodel.RecipeListViewModel
 
 class RecipesFragment: Fragment() {
@@ -22,7 +25,9 @@ class RecipesFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModel = ViewModelProvider(this)[RecipeListViewModel::class.java]
+        val myApp = this.activity?.application as App
+        val factory = RecipeListFactory(myApp.repository)
+        val viewModel = ViewModelProvider(this, factory)[RecipeListViewModel::class.java]
         context?.let {
             viewModel.loadRecipeData(it)
         }
@@ -38,6 +43,7 @@ class RecipesFragment: Fragment() {
     }
 
     private fun navigateToRecipeDetail(recipe: RecipeModel) {
+        Log.d("REC", recipe.toString())
         findNavController().navigate(
             R.id.action_recipesFragment_to_recipeDetailFragment,
             bundleOf("recipeId" to recipe.id)

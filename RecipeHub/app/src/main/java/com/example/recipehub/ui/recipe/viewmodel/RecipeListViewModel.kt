@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.example.recipehub.repository.recipe.RecipeRepository
 import com.example.recipehub.repository.recipe.model.RecipeModel
 
-class RecipeListViewModel() : ViewModel() {
+class RecipeListViewModel(val repository: RecipeRepository) : ViewModel() {
     private val _recipeModels = MutableLiveData<List<RecipeModel>>()
     val recipeModels: LiveData<List<RecipeModel>> =
         _recipeModels
 
     fun loadRecipeData(context: Context) {
-        val repo = RecipeRepository()
-        _recipeModels.value = repo.getAll(context)
+        _recipeModels.value = repository.getAll(context)
     }
 }

@@ -1,19 +1,26 @@
 package com.example.recipehub.ui.recipe
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.example.recipehub.App
 import com.example.recipehub.R
+import com.example.recipehub.databinding.FragmentRecipeDetailBinding
+import com.example.recipehub.ui.recipe.factory.RecipeDetailsFactory
+import com.example.recipehub.ui.recipe.viewmodel.RecipeDetailsViewModel
 
 class RecipeDetailFragment : Fragment() {
-    private var recipeId: String? = null
+    private var recipeId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            recipeId = it.getString("recipeId")
+            recipeId = it.getInt("recipeId")
         }
     }
 
@@ -21,8 +28,21 @@ class RecipeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val myApp = this.activity?.application as App
+        val factory = RecipeDetailsFactory(myApp.repository)
+        val viewModel = ViewModelProvider(this, factory)[RecipeDetailsViewModel::class]
+        viewModel.loadRecipeData(recipeId)
+
+        val binding = FragmentRecipeDetailBinding.inflate(inflater)
+        viewModel.recipeModel.observe(viewLifecycleOwner) {
+            binding.title.text = it?.name
+            binding.description.text = it?.description
+            binding.keywords.text = it?.keywords
+            Log.d("REC", binding.title.text.toString())
+            Glide.with(this).load(it?.thumbnailUrl).into(binding.image)
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_detail, container, false)
+        return binding.root
     }
 
     companion object {
