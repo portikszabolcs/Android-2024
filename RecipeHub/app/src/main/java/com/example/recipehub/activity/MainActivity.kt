@@ -3,14 +3,12 @@ package com.example.recipehub.activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.recipehub.R
 import com.example.recipehub.databinding.ActivityMainBinding
-import com.example.recipehub.ui.HomeFragment
-import com.example.recipehub.ui.profile.ProfileFragment
-import com.example.recipehub.ui.recipe.RecipesFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,23 +17,17 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bottomNavigationView.setOnItemSelectedListener{
-            val id = it.itemId
-            when(id) {
-                R.id.homeFragment -> replaceFragment(HomeFragment())
-                R.id.recipesFragment -> replaceFragment(RecipesFragment())
-                R.id.profileFragment -> replaceFragment(ProfileFragment())
-            }
-            true
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+        if (navHostFragment != null) {
+            val navController = navHostFragment.navController
+            val navView = binding.bottomNavigationView
+            val appBarConfiguration = AppBarConfiguration(
+                setOf(R.id.homeFragment, R.id.recipesFragment, R.id.profileFragment)
+            )
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            navView.setupWithNavController(navController)
         }
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        transaction.replace(binding.navHostFragment.id, fragment)
-        transaction.commit()
     }
 
     override fun onStart() {

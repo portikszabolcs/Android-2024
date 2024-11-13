@@ -52,6 +52,7 @@ android {
 
 dependencies {
     implementation(libs.gson)
+    implementation(libs.glide)
 
     // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)

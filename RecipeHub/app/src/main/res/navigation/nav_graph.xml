@@ -18,12 +18,19 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.recipehub.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_recipesFragment"
+            app:destination="@id/recipesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipesFragment"
         android:name="com.example.recipehub.ui.recipe.RecipesFragment"
-        android:label="fragment_recipes"
+        android:label="Recipes"
         tools:layout="@layout/fragment_recipes" >
         <action
             android:id="@+id/action_recipesFragment_to_recipeDetailFragment"
@@ -32,11 +39,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.recipehub.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="com.example.recipehub.ui.recipe.RecipeDetailFragment"
-        android:label="fragment_recipe_detail"
+        android:label="Recipe details"
         tools:layout="@layout/fragment_recipe_detail" />
 </navigation>
