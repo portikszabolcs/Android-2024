@@ -1,18 +1,18 @@
 package com.example.recipehub.ui.recipe
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.recipehub.App
-import com.example.recipehub.R
 import com.example.recipehub.databinding.FragmentRecipeDetailBinding
 import com.example.recipehub.ui.recipe.factory.RecipeDetailsFactory
 import com.example.recipehub.ui.recipe.viewmodel.RecipeDetailsViewModel
+import com.google.android.material.chip.Chip
 
 class RecipeDetailFragment : Fragment() {
     private var recipeId: Int = 0
@@ -27,7 +27,7 @@ class RecipeDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val myApp = this.activity?.application as App
         val factory = RecipeDetailsFactory(myApp.repository)
         val viewModel = ViewModelProvider(this, factory)[RecipeDetailsViewModel::class]
@@ -35,23 +35,21 @@ class RecipeDetailFragment : Fragment() {
 
         val binding = FragmentRecipeDetailBinding.inflate(inflater)
         viewModel.recipeModel.observe(viewLifecycleOwner) {
+            Glide.with(this).load(it?.thumbnailUrl).into(binding.image)
             binding.title.text = it?.name
             binding.description.text = it?.description
-            binding.keywords.text = it?.keywords
-            Log.d("REC", binding.title.text.toString())
-            Glide.with(this).load(it?.thumbnailUrl).into(binding.image)
+
+            val keywords = it?.keywords?.split(", ")
+            val mlp = MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            mlp.setMargins(16, 0, 0, 0)
+            keywords?.forEach { keyword ->
+                val chip = Chip(context)
+                chip.text = keyword
+                chip.layoutParams = mlp
+                binding.keywordsContainer.addView(chip)
+            }
         }
         // Inflate the layout for this fragment
         return binding.root
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(recipeId: String) =
-            RecipeDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString("recipeId", recipeId)
-                }
-            }
     }
 }

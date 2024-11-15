@@ -35,7 +35,9 @@ class RecipesFragment: Fragment() {
         viewModel.recipeModels.observe(viewLifecycleOwner) {recipes ->
             val recipeAdapter = context?.let { RecipesListAdapter(recipes, it, ::navigateToRecipeDetail) }
             val recyclerView : RecyclerView? = container?.findViewById(R.id.recipeListRecycleView)
-            recyclerView?.layoutManager = LinearLayoutManager(context)
+            val layoutManager = LinearLayoutManager(context)
+            recyclerView?.layoutManager = layoutManager
+            recyclerView?.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
             recyclerView?.adapter = recipeAdapter
         }
         // Inflate the layout for this fragment

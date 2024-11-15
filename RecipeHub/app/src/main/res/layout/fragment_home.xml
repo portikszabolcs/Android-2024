@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:text="@string/welcome"
-            android:textSize="32sp"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
