@@ -12,7 +12,10 @@ class RecipeDetailsViewModel(val repository: RecipeRepository): ViewModel() {
     val recipeModel: LiveData<RecipeModel?> = _recipeModel
 
     fun loadRecipeData(id: Int) {
-        Log.d("REC", id.toString())
         _recipeModel.value = repository.getById(id)
+    }
+
+    fun loadMyRecipeData(id: Int) {
+        _recipeModel.value = repository.getMyRecipeById(id)
     }
 }

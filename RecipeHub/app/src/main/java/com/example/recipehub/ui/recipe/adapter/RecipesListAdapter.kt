@@ -12,14 +12,19 @@ import com.example.recipehub.repository.recipe.model.RecipeModel
 class RecipesListAdapter(
     private var recipesList: List<RecipeModel>,
     private var context: Context,
-    private val onclick: (RecipeModel) -> Unit
+    private val onClick: (RecipeModel) -> Unit,
+    private val onLongClick: (RecipeModel) -> Unit = {}
 ): RecyclerView.Adapter<RecipesListAdapter.RecipeItemViewHolder>() {
 
     inner class RecipeItemViewHolder(val binding: RecipeListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener{
-                onclick(recipesList[this.adapterPosition])
+                onClick(recipesList[this.adapterPosition])
+            }
+            binding.root.setOnLongClickListener {
+                onLongClick(recipesList[this.adapterPosition])
+                true
             }
         }
     }
@@ -34,6 +39,10 @@ class RecipesListAdapter(
     override fun onBindViewHolder(holder: RecipeItemViewHolder, position: Int) {
         holder.binding.textView.text = recipesList[position].name
         holder.binding.textView4.text = recipesList[position].description
-        Glide.with(context).load(recipesList[position].thumbnailUrl).into(holder.binding.imageView2)
+        Glide.with(context)
+            .load(recipesList[position].thumbnailUrl)
+            .fallback(R.drawable.logo_text_portrait_bk)
+            .error(R.drawable.pexels_goumbik_616401)
+            .into(holder.binding.imageView2)
     }
 }

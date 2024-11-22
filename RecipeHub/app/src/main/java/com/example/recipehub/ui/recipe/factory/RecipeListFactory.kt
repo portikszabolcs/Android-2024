@@ -13,5 +13,4 @@ class RecipeListFactory(private val repository: RecipeRepository) : ViewModelPro
         }
         return super.create(modelClass)
     }
-
 }

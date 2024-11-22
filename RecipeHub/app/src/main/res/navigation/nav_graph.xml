@@ -42,10 +42,22 @@
         android:id="@+id/profileFragment"
         android:name="com.example.recipehub.ui.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_createRecipeFragment"
+            app:destination="@id/createRecipeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="com.example.recipehub.ui.recipe.RecipeDetailFragment"
         android:label="Recipe details"
         tools:layout="@layout/fragment_recipe_detail" />
+    <fragment
+        android:id="@+id/createRecipeFragment"
+        android:name="com.example.recipehub.ui.profile.CreateRecipeFragment"
+        android:label="fragment_create_recipe"
+        tools:layout="@layout/fragment_create_recipe" />
 </navigation>

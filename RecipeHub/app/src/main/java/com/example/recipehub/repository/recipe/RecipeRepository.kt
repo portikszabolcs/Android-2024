@@ -2,6 +2,8 @@ package com.example.recipehub.repository.recipe
 
 import android.content.Context
 import android.util.Log
+import com.example.recipehub.repository.recipe.model.ComponentModel
+import com.example.recipehub.repository.recipe.model.InstructionModel
 import com.example.recipehub.repository.recipe.model.RecipeDTO
 import com.example.recipehub.repository.recipe.model.RecipeModel
 import com.example.recipehub.repository.recipe.model.toModelList
@@ -11,14 +13,37 @@ import java.io.IOException
 
 class RecipeRepository {
     private var recipeList: List<RecipeModel> = emptyList()
+    private var myRecipeList: ArrayList<RecipeModel> = ArrayList()
 
     fun getAll(context: Context): List<RecipeModel> {
         recipeList = readAll(context).toModelList()
         return recipeList
     }
 
+    fun getAllMyRecipes(context: Context): List<RecipeModel> {
+        return myRecipeList
+    }
+
     fun getById(id: Int): RecipeModel? {
         return recipeList.find { it.id == id }
+    }
+
+    fun getMyRecipeById(id: Int): RecipeModel? {
+        return myRecipeList.find { it.id == id }
+    }
+
+    fun insertRecipe(name: String,
+                     description: String,
+                     thumbnailUrl: String,
+                     keywords: String,
+                     components: List<ComponentModel>,
+                     instructions: List<InstructionModel>) {
+        val id = myRecipeList.maxOfOrNull { it.id }
+        myRecipeList.add(RecipeModel((id?.plus(1)) ?: 1, name, description, thumbnailUrl, keywords, components, instructions))
+    }
+
+    fun deleteRecipe(recipe: RecipeModel) {
+        myRecipeList.remove(recipe)
     }
 
     private fun readAll(context : Context): List<RecipeDTO> {
