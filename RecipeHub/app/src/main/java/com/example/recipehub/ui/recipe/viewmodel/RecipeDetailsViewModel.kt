@@ -1,11 +1,12 @@
 package com.example.recipehub.ui.recipe.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.recipehub.repository.recipe.RecipeRepository
 import com.example.recipehub.repository.recipe.model.RecipeModel
+import kotlinx.coroutines.launch
 
 class RecipeDetailsViewModel(val repository: RecipeRepository): ViewModel() {
     private val _recipeModel = MutableLiveData<RecipeModel?>()
@@ -16,6 +17,8 @@ class RecipeDetailsViewModel(val repository: RecipeRepository): ViewModel() {
     }
 
     fun loadMyRecipeData(id: Int) {
-        _recipeModel.value = repository.getMyRecipeById(id)
+        viewModelScope.launch {
+            _recipeModel.value = repository.getMyRecipeById(id)
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.example.recipehub.ui.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,12 +30,13 @@ class ProfileFragment : Fragment() {
         val myApp = this.activity?.application as App
         val factory = MyRecipeListFactory(myApp.repository)
         val viewModel = ViewModelProvider(this, factory)[MyRecipeListViewModel::class.java]
-        context?.let {
-            viewModel.loadRecipeData(it)
-        }
+        viewModel.loadRecipeData()
 
         viewModel.recipeModels.observe(viewLifecycleOwner) {recipes ->
-            val recipeAdapter = context?.let { RecipesListAdapter(recipes, it, ::navigateToRecipeDetail) }
+            val recipeAdapter = context?.let { RecipesListAdapter(recipes, it, ::navigateToRecipeDetail) { recipe ->
+                    viewModel.deleteRecipeById(recipe.id)
+                }
+            }
             val recyclerView : RecyclerView = binding.recyclerView
             val layoutManager = LinearLayoutManager(context)
             recyclerView.layoutManager = layoutManager
@@ -56,7 +56,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun navigateToRecipeDetail(recipe: RecipeModel) {
-        Log.d("REC", recipe.toString())
         findNavController().navigate(
             R.id.action_profileFragment_to_recipeDetailFragment,
             bundleOf("myRecipeId" to recipe.id)

@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipehub.App
-import com.example.recipehub.R
+import com.example.recipehub.database.recipe.RecipeEntity
 import com.example.recipehub.databinding.FragmentCreateRecipeBinding
 import com.example.recipehub.repository.recipe.model.RecipeModel
 import com.example.recipehub.ui.profile.factory.MyRecipeListFactory
 import com.example.recipehub.ui.profile.viewmodel.MyRecipeListViewModel
+import com.google.gson.Gson
 
 class CreateRecipeFragment : Fragment() {
     private lateinit var binding: FragmentCreateRecipeBinding
@@ -32,13 +33,17 @@ class CreateRecipeFragment : Fragment() {
              MyRecipeListFactory(myApp.repository)
         })
         binding.saveButton.setOnClickListener {
-            viewModel.insertRecipe(
+            val recipeModel = RecipeModel(
+                1,
                 binding.recipeTitle.text.toString(),
                 binding.recipeDescription.text.toString(),
                 binding.recipeImageUrl.text.toString(),
                 binding.recipeKeywords.text.toString(),
                 components = emptyList(),
-                instructions = emptyList())
+                instructions = emptyList()
+            )
+            val recipe = RecipeEntity(json=Gson().toJson(recipeModel))
+            viewModel.insertRecipe(recipe)
             findNavController().popBackStack()
         }
     }
