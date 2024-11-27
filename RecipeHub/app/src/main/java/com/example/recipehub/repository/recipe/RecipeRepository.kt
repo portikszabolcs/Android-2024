@@ -1,6 +1,8 @@
 package com.example.recipehub.repository.recipe
 
 import android.content.Context
+import android.util.Log
+import com.example.recipehub.api.RecipeApiClient
 import com.example.recipehub.database.recipe.RecipeDao
 import com.example.recipehub.database.recipe.RecipeEntity
 import com.example.recipehub.repository.recipe.model.RecipeDTO
@@ -15,9 +17,16 @@ import java.io.IOException
 class RecipeRepository(private val recipeDao: RecipeDao) {
     private var recipeList: List<RecipeModel> = emptyList()
     private val gson = Gson()
+    private val recipeApiClient = RecipeApiClient()
 
     fun getAll(context: Context): List<RecipeModel> {
         recipeList = readAll(context).toModelList()
+        return recipeList
+    }
+
+    suspend fun getAllFromApi(): List<RecipeModel> {
+        recipeList = recipeApiClient.getRecipes()?.toModelList() ?: emptyList()
+        Log.d("REC1", recipeList.toString())
         return recipeList
     }
 
@@ -31,6 +40,11 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
 
     fun getById(id: Int): RecipeModel? {
         return recipeList.find { it.id == id }
+    }
+
+    suspend fun getRecipeByIdFromApi(id: Int): RecipeModel? {
+        val recipe = recipeApiClient.getRecipeById(id) ?: return null
+        return recipe.toModel()
     }
 
     suspend fun getMyRecipeById(id: Int): RecipeModel? {

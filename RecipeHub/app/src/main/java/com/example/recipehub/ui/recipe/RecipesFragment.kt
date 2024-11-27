@@ -28,9 +28,7 @@ class RecipesFragment: Fragment() {
         val myApp = this.activity?.application as App
         val factory = RecipeListFactory(myApp.repository)
         val viewModel = ViewModelProvider(this, factory)[RecipeListViewModel::class.java]
-        context?.let {
-            viewModel.loadRecipeData(it)
-        }
+        viewModel.loadRecipeDataFromApi()
 
         viewModel.recipeModels.observe(viewLifecycleOwner) {recipes ->
             val recipeAdapter = context?.let { RecipesListAdapter(recipes, it, ::navigateToRecipeDetail) }

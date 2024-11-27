@@ -1,7 +1,6 @@
 package com.example.recipehub.ui.recipe
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +34,7 @@ class RecipeDetailFragment : Fragment() {
         val myApp = this.activity?.application as App
         val factory = RecipeDetailsFactory(myApp.repository)
         val viewModel = ViewModelProvider(this, factory)[RecipeDetailsViewModel::class]
-        if(recipeId > 0) viewModel.loadRecipeData(recipeId)
+        if(recipeId > 0) viewModel.loadRecipeDataFromApi(recipeId)
         else viewModel.loadMyRecipeData(myRecipeId)
 
         val binding = FragmentRecipeDetailBinding.inflate(inflater)

@@ -21,4 +21,10 @@ class RecipeDetailsViewModel(val repository: RecipeRepository): ViewModel() {
             _recipeModel.value = repository.getMyRecipeById(id)
         }
     }
+
+    fun loadRecipeDataFromApi(id: Int) {
+        viewModelScope.launch {
+            _recipeModel.value = repository.getRecipeByIdFromApi(id)
+        }
+    }
 }
