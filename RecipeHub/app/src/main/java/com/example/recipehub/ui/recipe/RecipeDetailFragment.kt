@@ -46,10 +46,18 @@ class RecipeDetailFragment : Fragment() {
                 .into(binding.image)
             binding.title.text = it?.name
             binding.description.text = it?.description
+            if(it?.nutrition != null) {
+                binding.nutritionTable.nutritionCalories.text = it.nutrition.calories.toString()
+                binding.nutritionTable.nutritionProtein.text = it.nutrition.protein.toString()
+                binding.nutritionTable.nutritionFat.text = it.nutrition.fat.toString()
+                binding.nutritionTable.nutritionCarbohydrates.text = it.nutrition.carbohydrates.toString()
+                binding.nutritionTable.nutritionSugar.text = it.nutrition.sugar.toString()
+                binding.nutritionTable.nutritionFiber.text = it.nutrition.fiber.toString()
+            }
 
             val keywords = it?.keywords?.split(", ")
             val mlp = MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            mlp.setMargins(16, 0, 0, 0)
+            mlp.setMargins(0, 0, 16, 0)
             keywords?.forEach { keyword ->
                 val chip = Chip(context)
                 chip.text = keyword

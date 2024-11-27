@@ -40,7 +40,8 @@ class CreateRecipeFragment : Fragment() {
                 binding.recipeImageUrl.text.toString(),
                 binding.recipeKeywords.text.toString(),
                 components = emptyList(),
-                instructions = emptyList()
+                instructions = emptyList(),
+                nutrition = null
             )
             val recipe = RecipeEntity(json=Gson().toJson(recipeModel))
             viewModel.insertRecipe(recipe)

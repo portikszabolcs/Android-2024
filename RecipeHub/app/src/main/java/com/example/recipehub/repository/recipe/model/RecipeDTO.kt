@@ -13,6 +13,7 @@ data class RecipeDTO(
     val numServings: Long,
     val components: List<ComponentDTO>,
     val instructions: List<InstructionDTO>,
+    val nutrition: NutritionDTO?,
 )
 
 fun RecipeDTO.toModel(): RecipeModel
@@ -23,7 +24,8 @@ fun RecipeDTO.toModel(): RecipeModel
     thumbnailUrl = this.thumbnailUrl,
     keywords = this.keywords,
     components = this.components.toModelList(),
-    instructions = this.instructions.toModelList()) }
+    instructions = this.instructions.toModelList(),
+    nutrition = this.nutrition?.toModel()) }
 
 fun List<RecipeDTO>.toModelList(): List<RecipeModel>
 { return this.map { it.toModel() } }
