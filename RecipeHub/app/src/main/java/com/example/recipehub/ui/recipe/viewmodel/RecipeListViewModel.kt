@@ -1,7 +1,6 @@
 package com.example.recipehub.ui.recipe.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,9 +21,6 @@ class RecipeListViewModel(val repository: RecipeRepository) : ViewModel() {
     fun loadRecipeDataFromApi() {
         viewModelScope.launch {
             val recipes = repository.getAllFromApi()
-            recipes.forEach {
-                Log.d("RECIPE_API", it.toString())
-            }
             _recipeModels.value = recipes
         }
     }

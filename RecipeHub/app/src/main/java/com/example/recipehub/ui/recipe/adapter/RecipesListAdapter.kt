@@ -41,7 +41,7 @@ class RecipesListAdapter(
         holder.binding.textView4.text = recipesList[position].description
         Glide.with(context)
             .load(recipesList[position].thumbnailUrl)
-            .fallback(R.drawable.logo_text_portrait_bk)
+            .fallback(R.drawable.pexels_goumbik_616401)
             .error(R.drawable.pexels_goumbik_616401)
             .into(holder.binding.imageView2)
     }

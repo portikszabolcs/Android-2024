@@ -58,6 +58,6 @@
     <fragment
         android:id="@+id/createRecipeFragment"
         android:name="com.example.recipehub.ui.profile.CreateRecipeFragment"
-        android:label="fragment_create_recipe"
+        android:label="Create recipe"
         tools:layout="@layout/fragment_create_recipe" />
 </navigation>

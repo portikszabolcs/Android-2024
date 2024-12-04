@@ -18,6 +18,7 @@ import com.example.recipehub.repository.recipe.model.RecipeModel
 import com.example.recipehub.ui.profile.factory.MyRecipeListFactory
 import com.example.recipehub.ui.profile.viewmodel.MyRecipeListViewModel
 import com.example.recipehub.ui.recipe.adapter.RecipesListAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -34,7 +35,17 @@ class ProfileFragment : Fragment() {
 
         viewModel.recipeModels.observe(viewLifecycleOwner) {recipes ->
             val recipeAdapter = context?.let { RecipesListAdapter(recipes, it, ::navigateToRecipeDetail) { recipe ->
-                    viewModel.deleteRecipeById(recipe.id)
+                    context?.let { context ->
+                        val dialog = MaterialAlertDialogBuilder(context)
+                        dialog.setTitle("Delete recipe")
+                            .setMessage("Are you sure you want to delete the recipe?")
+                            .setPositiveButton("Delete") { _, _ ->
+                                viewModel.deleteRecipeById(recipe.id)
+                            }
+                            .setNegativeButton("Cancel") { dg, _ -> dg.cancel() }
+                        dialog.create()
+                        dialog.show()
+                    }
                 }
             }
             val recyclerView : RecyclerView = binding.recyclerView
