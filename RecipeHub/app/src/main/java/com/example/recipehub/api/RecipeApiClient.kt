@@ -5,6 +5,7 @@ import com.example.recipehub.repository.recipe.model.RecipeDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -50,5 +51,11 @@ class RecipeApiClient {
                 null
             }
         }
+    }
+
+    fun getUserData(): JSONObject {
+        val tokenPayload = TOKEN.split(".")[1]
+        val decodedPayload = String(android.util.Base64.decode(tokenPayload, android.util.Base64.URL_SAFE))
+        return JSONObject(decodedPayload)
     }
 }

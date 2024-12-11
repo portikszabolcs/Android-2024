@@ -79,4 +79,6 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         }
         return recipeList
     }
+
+    fun getUserData() = recipeApiClient.getUserData()
 }

@@ -41,9 +41,9 @@ fun MeasurementDTO.toModel(): MeasurementModel{
 
 data class UnitDTO(
     val name: String,
-    val displaySingular: String,
-    val displayPlural: String,
-    val abbreviation: String,
+    val displaySingular: String?,
+    val displayPlural: String?,
+    val abbreviation: String?,
 )
 
 fun UnitDTO.toModel(): UnitModel{

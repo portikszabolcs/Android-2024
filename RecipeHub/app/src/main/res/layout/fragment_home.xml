@@ -1,45 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
 
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/greeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:text="@string/welcome"
+            android:textAlignment="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImage"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@color/ic_launcher_background"
+            android:contentDescription="@string/profile_image"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/pexels_goumbik_616401"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/greeting"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:shapeAppearance="?attr/shapeAppearanceCornerLarge" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:padding="32dp"
-            android:layout_marginTop="48dp"
             android:text="@string/welcome_message"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/message" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="16dp"
             android:text="@string/lets_start"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
